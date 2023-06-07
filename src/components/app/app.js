@@ -49,6 +49,7 @@ class App extends Component {
           id: 5,
         },
       ],
+      activeTab: 0,
     };
   }
 
@@ -91,7 +92,12 @@ class App extends Component {
         <AppInfo data={this.state.data} />
         <div className="search-panel">
           <SearchPanel />
-          <AppFilter />
+          <AppFilter
+            activeTab={this.state.activeTab}
+            setActiveTab={(tabIndex) => {
+              this.setState({ activeTab: tabIndex });
+            }}
+          />
         </div>
         <EmployeesList
           data={this.state.data}
