@@ -20,11 +20,11 @@ class EmployeesAddForm extends Component {
   addEmployee = (e) => {
     e.preventDefault();
     const { addItem } = this.props;
-    if (this.state.name.length >= 3 && this.state.salary>=0) {
-    addItem({ ...this.state, increase: false });
-  } else {
-    alert ('vvedite korrekto name and salary')
-  }
+    if (this.state.name.length >= 3 && this.state.salary > 0) {
+      addItem({ ...this.state, increase: false });
+    } else {
+      alert("vvedite korrekto name and salary");
+    }
   };
 
   render() {
