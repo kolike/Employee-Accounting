@@ -50,6 +50,7 @@ class App extends Component {
         },
       ],
       activeTab: 0,
+      query: "",
     };
   }
 
@@ -87,11 +88,36 @@ class App extends Component {
   };
 
   render() {
+    let filteredData;
+    if (this.state.query) {
+      filteredData = this.state.data.filter((item) =>
+        item.name.includes(this.state.query)
+      );
+    } else {
+      filteredData = this.state.data;
+    }
+
+    switch (this.state.activeTab) {
+      case 1:
+        filteredData = filteredData.filter((item) => item.rise);
+        break;
+      case 2:
+        filteredData = filteredData.filter((item) => item.salary > 30000);
+        break;
+      default:
+        break;
+    }
+
     return (
       <div className="app">
         <AppInfo data={this.state.data} />
         <div className="search-panel">
-          <SearchPanel />
+          <SearchPanel
+            query={this.state.query}
+            setQuery={(query) => {
+              this.setState({ query });
+            }}
+          />
           <AppFilter
             activeTab={this.state.activeTab}
             setActiveTab={(tabIndex) => {
@@ -100,7 +126,7 @@ class App extends Component {
           />
         </div>
         <EmployeesList
-          data={this.state.data}
+          data={filteredData}
           onDelete={this.deleteItem}
           onToggleIncrease={this.onToggleIncrease}
           onToggleRise={this.onToggleRise}
